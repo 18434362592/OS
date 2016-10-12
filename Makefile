@@ -14,7 +14,8 @@ TOOLPREFIX := $(shell if i386-jos-elf-objdump -i 2>&1 | grep '^elf32-i386$$' >/d
 	echo "*** environment variable to that prefix and run 'make' again." 1>&2; \
 	echo "*** To turn off this error, run 'gmake TOOLPREFIX= ...'." 1>&2; \
 	echo "***" 1>&2; exit 1; fi)
-
+Object= bootblock.o xv6.img
+intermediate=bootblock.o bootload.d bootblock.asm bootload.o bootmain.o
 LD = $(TOOLPREFIX)ld
 AS = $(TOOLPREFIX)gas
 OBJDUMP = $(TOOLPREFIX)objdump
@@ -33,7 +34,7 @@ bootblock: bootload.S bootmain.c
 	./sign.pl bootblock
 
 clean:
-	rm bootblock.o bootload.o bootmain.o bootblock boot.img
+	rm -f *.o *.d *.asm bootblock xv6.img
 
 ifndef QEMU
 QEMU = $(shell if which qemu > /dev/null; \

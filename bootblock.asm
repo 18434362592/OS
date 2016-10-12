@@ -146,7 +146,7 @@ void waitdisk()
 {
     7c7e:	55                   	push   %ebp
     7c7f:	89 e5                	mov    %esp,%ebp
-#include "type.h"
+
 static inline uchar inb(ushort port)
 {
 	uchar data;
